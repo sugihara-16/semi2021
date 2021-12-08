@@ -1,0 +1,27 @@
+Symlinking /home/mech-user/semi_ws/devel/share/gennodejs/ros/tello_driver_wifi/_index.js
+Symlinking /home/mech-user/semi_ws/devel/share/gennodejs/ros/tello_driver_wifi/msg/_index.js
+Symlinking /home/mech-user/semi_ws/devel/share/gennodejs/ros/tello_driver_wifi/msg/TelloStatus.js
+Symlinking /home/mech-user/semi_ws/devel/share/roseus/ros/tello_driver_wifi/manifest.l
+Symlinking /home/mech-user/semi_ws/devel/share/roseus/ros/tello_driver_wifi/msg/TelloStatus.l
+Symlinking /home/mech-user/semi_ws/devel/share/tello_driver_wifi/docs/TelloConfig.wikidoc
+Symlinking /home/mech-user/semi_ws/devel/share/tello_driver_wifi/docs/TelloConfig-usage.dox
+Symlinking /home/mech-user/semi_ws/devel/share/tello_driver_wifi/docs/TelloConfig.dox
+Symlinking /home/mech-user/semi_ws/devel/share/tello_driver_wifi/cmake/tello_driver_wifiConfig.cmake
+Symlinking /home/mech-user/semi_ws/devel/share/tello_driver_wifi/cmake/tello_driver_wifiConfig-version.cmake
+Symlinking /home/mech-user/semi_ws/devel/share/tello_driver_wifi/cmake/tello_driver_wifi-msg-paths.cmake
+Symlinking /home/mech-user/semi_ws/devel/share/tello_driver_wifi/cmake/tello_driver_wifi-msg-extras.cmake
+Symlinking /home/mech-user/semi_ws/devel/share/common-lisp/ros/tello_driver_wifi/msg/_package.lisp
+Symlinking /home/mech-user/semi_ws/devel/share/common-lisp/ros/tello_driver_wifi/msg/TelloStatus.lisp
+Symlinking /home/mech-user/semi_ws/devel/share/common-lisp/ros/tello_driver_wifi/msg/_package_TelloStatus.lisp
+Symlinking /home/mech-user/semi_ws/devel/share/common-lisp/ros/tello_driver_wifi/msg/tello_driver_wifi-msg.asd
+Symlinking /home/mech-user/semi_ws/devel/lib/python2.7/dist-packages/tello_driver_wifi/__init__.py
+Symlinking /home/mech-user/semi_ws/devel/lib/python2.7/dist-packages/tello_driver_wifi/cfg/TelloConfig.py
+Symlinking /home/mech-user/semi_ws/devel/lib/python2.7/dist-packages/tello_driver_wifi/cfg/__init__.py
+Symlinking /home/mech-user/semi_ws/devel/lib/python2.7/dist-packages/tello_driver_wifi/msg/_TelloStatus.py
+Symlinking /home/mech-user/semi_ws/devel/lib/python2.7/dist-packages/tello_driver_wifi/msg/__init__.py
+Warning: Cannot symlink from /home/mech-user/semi_ws/devel/.private/tello_driver_wifi/lib/python2.7/dist-packages/tellopy/__init__.py to existing file /home/mech-user/semi_ws/devel/lib/python2.7/dist-packages/tellopy/__init__.py
+Warning: Source hash: 5cdd0f7d64a4fa014e88efd8f25ce88a
+Warning: Dest hash: 3e448af7cfcb4e2e46c0a7429493cb6b
+Symlinking /home/mech-user/semi_ws/devel/lib/pkgconfig/tello_driver_wifi.pc
+Symlinking /home/mech-user/semi_ws/devel/include/tello_driver_wifi/TelloStatus.h
+Symlinking /home/mech-user/semi_ws/devel/include/tello_driver_wifi/TelloConfig.h

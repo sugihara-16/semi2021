@@ -1,0 +1,1 @@
+/home/mech-user/semi_ws/devel/.private/tello_driver_wifi/share/gennodejs/ros/tello_driver_wifi/_index.js

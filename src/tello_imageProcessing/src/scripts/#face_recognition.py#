@@ -1,0 +1,139 @@
+#!/usr/bin/env python 
+# license removed for brevity
+# -*- coding: utf-8 -*-
+
+from re import I
+import rospy
+from std_msgs.msg import String
+from std_msgs.msg import Empty
+from std_msgs.msg import UInt8
+from geometry_msgs.msg import Twist
+import math
+import time
+from opencv_apps.msg import FaceArrayStamped 
+
+pre_x = 0 
+pre_y = 0
+count = 0
+
+
+def callback(msg):
+    global pre_x
+    global pre_y
+    global count
+
+    commands = {
+        'takeoff' : [None, '/tello/takeoff', Empty],
+        'land' : [None, '/tello/land',Empty],
+        'emergency' : [None, '/tello/emergency', Empty],
+        'fast_mode' : [None, '/tello/fast_mode', Empty],
+        'flattrim' : [None, '/tello/flattrimm', Empty],
+        'flip' : [None, '/tello/flip', UInt8],
+        'palm_land' : [None, '/tello/palm_land', Empty],
+        'throw_takeoff' : [None, '/tello/throw_takeoff', Empty], 
+        'position' : [None, '/tello/cmd_vel', Twist]
+
+    }
+    #pub = rospy.Publisher(topic, type, queue_size=10)
+    
+
+    try:
+
+        twist = Twist()
+        pub = rospy.Publisher('/tello/cmd_vel', Twist, queue_size=10)
+
+
+        if msg.faces:
+            face = msg.faces[0].face
+            x = face.x
+            y = face.y
+            center_x = 300
+            center_y = 250
+
+            if count == 0:
+                pre_x = center_x - x
+                pre_y = center_y - y
+                count += 1
+
+            #P_gain
+            Kp = 10
+            #I_gain
+            Ki = 1
+            #D_gain
+            Kd = 10
+
+            dt = 0.06
+
+            p_x = center_x - x
+            i_x = p_x*dt
+            d_x = (p_x-pre_x)/dt
+
+            p_y = center_y - y
+            i_y = p_y*dt
+            d_y = (p_y-pre_y)/dt
+
+
+            twist.linear.x = Kp*p_x + Ki*i_x + Kd*d_x
+            twist.linear.y = Kp*p_y + Ki*i_y + Kd*d_y
+
+            pre_x = pre_x - twist.linear.x*dt
+            pre_y = pre_y - twist.linear.y*dt
+
+            pub.publish(twist) 
+
+        else:
+            count = 0
+            twist.angular.z = 20.0
+            pub.publish(twist)
+            
+
+            
+    except Exception as err:
+        print err
+
+if __name__ == '__main__':
+    try:
+        rospy.init_node('FR_Control')
+        rospy.loginfo('FR_Control starts')
+        rospy.Subscriber('/face_recognition/output', FaceArrayStamped, callback)
+        rospy.spin()
+    except rospy.ROSInterruptException:
+        
+f FUNCTION  Display documentation for the given function.
+F COMMAND   Show the Emacs manual’s section that describes the command.
+g           Display information about the GNU project.
+h           Display the HELLO file which illustrates various scripts.
+i           Start the Info documentation reader: read included manuals.
+I METHOD    Describe a specific input method, or RET for current.
+k KEYS      Display the full documentation for the key sequence.
+K KEYS      Show the Emacs manual’s section for the command bound to KEYS.
+l           Show last 300 input keystrokes (lossage).
+L LANG-ENV  Describes a specific language environment, or RET for current.
+m           Display documentation of current minor modes and current major mode,
+              including their special commands.
+n           Display news of recent Emacs changes.
+o SYMBOL    Display the given function or variable’s documentation and value.
+p TOPIC     Find packages matching a given topic keyword.
+P PACKAGE   Describe the given Emacs Lisp package.
+r           Display the Emacs manual in Info mode.
+s           Display contents of current syntax table, plus explanations.
+S SYMBOL    Show the section for the given symbol in the Info manual
+              for the programming language used in this buffer.
+t           Start the Emacs learn-by-doing tutorial.
+v VARIABLE  Display the given variable’s documentation and value.
+w COMMAND   Display which keystrokes invoke the given command (where-is).
+.           Display any available local help at point in the echo area.
+
+C-a         Information about Emacs.
+C-c         Emacs copying permission (GNU General Public License).
+C-d         Instructions for debugging GNU Emacs.
+C-e         External packages and information about Emacs.
+q
+q
+C-f         Emacs FAQ.
+C-m         How to order printed Emacs manuals.
+C-n         News of recent Emacs changes.
+C-o         Emacs ordering and distribution information.
+C-p         Info about known Emacs problems.
+
+        pass

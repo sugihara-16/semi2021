@@ -1,0 +1,1 @@
+/home/mech-user/semi_ws/devel/.private/tello_driver_wifi/share/common-lisp/ros/tello_driver_wifi/msg/tello_driver_wifi-msg.asd

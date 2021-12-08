@@ -1,0 +1,8 @@
+prefix=/home/mech-user/semi_ws/devel/.private/tello_imageProcessing
+
+Name: tello_imageProcessing
+Description: Description of tello_imageProcessing
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
