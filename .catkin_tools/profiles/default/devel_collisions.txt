@@ -1,0 +1,2 @@
+/home/mech-user/semi_ws/devel/./cmake.lock 192
+/home/mech-user/semi_ws/devel/lib/python2.7/dist-packages/tellopy/__init__.py 12

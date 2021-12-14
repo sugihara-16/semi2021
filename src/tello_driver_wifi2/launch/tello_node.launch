@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <launch>
-	<arg name="tello_ip" default="192.168.11.49" />
+	<arg name="tello_ip" default="192.168.11.59" />
 	<arg name="tello_cmd_server_port"	default="8889" />
 	<arg name="local_cmd_client_port"	default="8890" />
 	<arg name="local_vid_server_port"	default="6038" />
-	<arg name="camera_calibration"		default="$(find tello_driver)/cfg/960x720.yaml" />    
+	<arg name="camera_calibration"		default="$(find tello_driver_wifi2)/cfg/960x720.yaml" />    
 	<arg name="namespace"			default="tello3" />
 
 	<group ns="$(arg namespace)">

@@ -1,6 +1,6 @@
 \subsubsection usage Usage
 \verbatim
-<node name="tello_driver_node.py" pkg="tello_driver" type="tello_driver_node.py">
+<node name="tello_driver_node.py" pkg="tello_driver_wifi" type="tello_driver_node.py">
   <param name="fixed_video_rate" type="int" value="0" />
   <param name="video_req_sps_hz" type="double" value="0.5" />
   <param name="altitude_limit" type="int" value="10" />

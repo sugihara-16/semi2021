@@ -1,0 +1,1 @@
+/home/mech-user/semi_ws/devel/.private/tello_driver_wifi2/share/tello_driver_wifi2/cmake/tello_driver_wifi2Config.cmake

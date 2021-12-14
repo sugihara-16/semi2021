@@ -61,7 +61,7 @@ class Tello(object):
     LOG_ALL = logger.LOG_ALL
 
     def __init__(self, port=9000):
-        self.tello_addr = ('192.168.10.1', 8889)
+        self.tello_addr = ('192.168.11.49', 8889)
         self.debug = False
         self.pkt_seq_num = 0x01e4
         self.port = port

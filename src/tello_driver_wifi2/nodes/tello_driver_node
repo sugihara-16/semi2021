@@ -6,8 +6,8 @@ from sensor_msgs.msg import Image, CompressedImage, Imu
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 from dynamic_reconfigure.server import Server
-from tello_driver.msg import TelloStatus
-from tello_driver.cfg import TelloConfig
+from tello_driver_wifi2.msg import TelloStatus
+from tello_driver_wifi2.cfg import TelloConfig
 from cv_bridge import CvBridge, CvBridgeError
 
 import math
