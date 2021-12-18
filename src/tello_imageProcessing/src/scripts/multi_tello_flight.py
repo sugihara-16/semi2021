@@ -22,10 +22,13 @@ class MultiTello():
         self.ar_detect = False
         self.takeoff_1_pub = rospy.Publisher('/tello1/takeoff', Empty, queue_size = 10)
         self.takeoff_2_pub = rospy.Publisher('/tello2/takeoff', Empty, queue_size = 10)
+        self.takeoff_3_pub = rospy.Publisher('/tello3/takeoff', Empty, queue_size = 10
         self.land_1_pub = rospy.Publisher('/tello1/land', Empty, queue_size = 10)
         self.land_2_pub = rospy.Publisher('/tello2/land', Empty, queue_size = 10)
+        self.land_3_pub = rospy.Publisher('/tello3/land', Empty, queue_size = 10)
         self.cmd_vel_1_pub = rospy.Publisher('/tello1/cmd_vel', Twist, queue_size = 10)
         self.cmd_vel_2_pub = rospy.Publisher('/tello2/cmd_vel', Twist, queue_size = 10)
+        self.cmd_vel_3_pub = rospy.Publisher('/tello3/cmd_vel', Twist, queue_size = 10)
         self.count = 0
         self.ar_sub = rospy.Subscriber('/ar_pose_marker',AlvarMarkers,self.callback)
 
@@ -70,7 +73,7 @@ class MultiTello():
                     twist.linear.x = velo
                     rospy.loginfo("px = %f",px)
                     rospy.loginfo("vx= %f",velo)
-                if py < -0.07 or 0.07 < py:
+                if py < -0.1 or 0.1 < py:
                     twist.linear.z = 1 * (py)/abs(py) 
                     rospy.loginfo("py = %f",py)
                     rospy.loginfo("vz = %f",twist.linear.z)

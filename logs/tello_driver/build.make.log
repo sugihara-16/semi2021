@@ -21,8 +21,8 @@
 [  0%] Built target std_msgs_generate_messages_eus
 [ 12%] Built target tello_driver_gencfg
 [ 25%] Built target tello_driver_generate_messages_cpp
-[ 37%] Built target tello_driver_generate_messages_nodejs
-[ 62%] Built target tello_driver_generate_messages_py
+[ 50%] Built target tello_driver_generate_messages_py
+[ 62%] Built target tello_driver_generate_messages_nodejs
 [ 75%] Built target tello_driver_generate_messages_lisp
 [100%] Built target tello_driver_generate_messages_eus
 [100%] Built target tello_driver_generate_messages

@@ -58,14 +58,14 @@ def talker():
             cm_list = cm.split()
             type = cm_list[0]   # linear or angular
             dire = cm_list[1]   # direction
-            scale = float(cm_list[2])  # scale
+            timer = float(cm_list[2])  # time
 
             twist1 = Twist()
             twist2 = Twist()
             twist3 = Twist()
             if cm_list[0] == 'l':   # linear
-                velo = 5 * (scale/abs(scale))
-                t = scale/velo
+                velo =  5* (timer/abs(timer))
+                t = timer
 
                 if cm_list[1] == 'x':
                     twist1.linear.x = twist2.linear.x=twist3.linear.x= velo
@@ -76,7 +76,7 @@ def talker():
                 pub_1_cmd_vel.publish(twist1)
                 pub_2_cmd_vel.publish(twist2)
                 pub_3_cmd_vel.publish(twist3)
-                time.sleep(t)
+                time.sleep(abs(t))
                 twist1.linear.x = twist1.linear.y = twist1.linear.z = 0.0
                 twist2.linear.x = twist2.linear.y = twist2.linear.z = 0.0
                 twist3.linear.x = twist3.linear.y = twist3.linear.z = 0.0
@@ -85,8 +85,8 @@ def talker():
                 pub_3_cmd_vel.publish(twist3)
             elif cm_list[0] == 'a':   # angular
                 l = 60
-                velo = 100 * (scale/abs(scale))
-                t = scale/velo
+                velo = 100 * (timer/abs(timer))
+                t = timer
              
                 twist1.angular.z = velo
                 twist2.angular.z = velo
@@ -95,7 +95,7 @@ def talker():
             
                 pub_1_cmd_vel.publish(twist1)
                 pub_2_cmd_vel.publish(twist2)
-                time.sleep(t)
+                time.sleep(abs(t))
                 twist1.angular.x = twist1.angular.y = twist1.angular.z = 0.0
                 twist2.angular.x = twist2.angular.y = twist2.angular.z = 0.0
                 twist1.linear.x = twist1.linear.y = twist1.linear.z = 0.0
