@@ -139,6 +139,6 @@ class MultiTello():
             
 if __name__=="__main__":
     try:
-        multi_tello = MultiTello();
+        multi_tello = MultiTello()
         rospy.spin()
     except rospy.ROSInterruptException: pass
