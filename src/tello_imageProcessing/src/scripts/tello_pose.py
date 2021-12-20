@@ -15,6 +15,8 @@ class ThrowDetection():
         rospy.init_node('throw_detector', anonymous=True)
 
         self.flight_status = False
+        self.takeoff_count = 0
+        self.land_count = 0
         
         self.pose_sub = rospy.Subscriber('/edgetpu_human_pose_estimator/output/poses', PeoplePoseArray, self.pose_callback)
         self.takeoff_pub =rospy.Publisher('/tello1/takeoff', Empty, queue_size=1)
@@ -50,7 +52,6 @@ class ThrowDetection():
         
             if right_wrist[0]:
                 right_wrist_pos = pose[right_wrist[1]].position
-                rospy.loginfo(right_wrist_pos.y)
             if left_wrist[0]:
                 left_wrist_pos = pose[left_wrist[1]].position
             if right_shoulder[0]:
@@ -59,15 +60,27 @@ class ThrowDetection():
                 left_shoulder_pos = pose[left_shoulder[1]].position
         
             if right_wrist[0] and right_shoulder[0] and ( right_wrist_pos.y < right_shoulder_pos.y):
-                rospy.loginfo('takeoff')
-                self.takeoff_pub.publish()
-                self.flight_status = True
+                self.takeoff_count += 1
+                rospy.loginfo(self.takeoff_count)
+                if self.takeoff_count > 30:
+                    rospy.loginfo('takeoff')
+                    self.takeoff_pub.publish()
+                    self.flight_status = True
+                    self.takeoff_count = 0
+            else:
+                self.takeoff_count = 0
 
             if left_wrist[0] and left_shoulder[0] and ( left_wrist_pos.y < left_shoulder_pos.y):
-                rospy.loginfo('land')
-                self.land_pub.publish()
-                self.flight_status = False
-
+                self.land_count += 1
+                rospy.loginfo(self.land_count)
+                if self.land_count > 30:
+                    rospy.loginfo('land')
+                    self.land_pub.publish()
+                    self.flight_status = False
+                    self.land_count = 0
+            else:
+                self.land_count = 0
+                
             
         
 

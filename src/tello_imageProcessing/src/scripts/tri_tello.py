@@ -21,6 +21,9 @@ class MultiTello():
         self.tello_flight_status = False
         self.tello_active = True
         self.ar_detect = False
+        self.catch_move = False
+        self.catch_count = 0
+        
         self.length = 0.7
         self.takeoff_1_pub = rospy.Publisher('/tello1/takeoff', Empty, queue_size = 10)
         self.takeoff_2_pub = rospy.Publisher('/tello2/takeoff', Empty, queue_size = 10)
@@ -32,9 +35,12 @@ class MultiTello():
         self.cmd_vel_2_pub = rospy.Publisher('/tello2/cmd_vel', Twist, queue_size = 10)
         self.cmd_vel_3_pub = rospy.Publisher('/tello3/cmd_vel', Twist, queue_size = 10)
         self.count = 0
-        self.ar_sub = rospy.Subscriber('/ar_pose_marker',AlvarMarkers,self.callback)
+        self.ar_sub = rospy.Subscriber('/ar_pose_marker',AlvarMarkers,self.ar_cb)
+        self.throw_sub = rospy.Subscriber('/throwing', String, self.throw_cb)
 
-    def callback(self, msg):
+    def ar_cb(self, msg):
+        if self.catch_move:
+            return
         global count_2,count_3,limit_count
         ar_markers = msg.markers
         ar_pose = [0,0,0]
@@ -133,6 +139,38 @@ class MultiTello():
                     rospy.loginfo("vy3 = %f",twist3.linear.y)
                 self.cmd_vel_3_pub.publish(twist3)
             count_3 += 1
+            
+    def throw_cb(self, msg):
+        direction = msg.data
+        self.catch_count += 1
+        twist1 = Twist()
+        twist2 = Twist()
+        twist3 = Twist()
+        if direction == 'right':
+            rospy.loginfo('right')
+            self.catch_move = True
+            self.catch_count = 0
+            twist1.linear.x = twist2.linear.x = twist3.linear.x = 10
+            self.cmd_vel_1_pub.publish(twist1)
+            self.cmd_vel_2_pub.publish(twist2)
+            self.cmd_vel_3_pub.publish(twist3)
+
+        if direction == 'left':
+            rospy.loginfo('left')
+            self.catch_move = True
+            self.catch_count = 0
+            twist1.linear.x = twist2.linear.x = twist3.linear.x = -10
+            self.cmd_vel_1_pub.publish(twist1)
+            self.cmd_vel_2_pub.publish(twist2)
+            self.cmd_vel_3_pub.publish(twist3)
+
+        if (self.catch_count > 10) and (self.catch_move == True):
+            rospy.loginfo('release')
+            self.cmd_vel_1_pub.publish(twist1)
+            self.cmd_vel_2_pub.publish(twist2)
+            self.cmd_vel_3_pub.publish(twist3)
+            self.catch_move = False
+        
                         
             
             

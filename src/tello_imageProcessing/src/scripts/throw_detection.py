@@ -31,6 +31,7 @@ class ThrowDetection():
     def pose_callback(self,msg):
         right_wrist = (False, 0)
         right_shoulder = (False, 0)
+        self.throw_pub.publish('')
 
         if msg.poses:
             poses = msg.poses
@@ -58,7 +59,7 @@ class ThrowDetection():
                 x_min = self.right_wrist_motion_x[x_min_pos_ind]
                 y_at_min = self.right_wrist_motion_y[x_min_pos_ind]
                 
-                if (abs(x_max - x_min) > 200) and (y_at_max < y_at_min) and (self.clock >=200):
+                if (abs(x_max - x_min) > 200) and (y_at_max > y_at_min) and (self.clock >=200):
                    rospy.loginfo('left throw!!')
                    self.throw_pub.publish('left')
                    self.right_wrist_motion_x = []
@@ -66,7 +67,7 @@ class ThrowDetection():
                    self.clock_switch = True
                    self.clock = 0
                    
-                if (abs(x_max - x_min) > 200) and (y_at_max > y_at_min) and (self.clock >= 200):
+                if (abs(x_max - x_min) > 200) and (y_at_max < y_at_min) and (self.clock >= 200):
                    rospy.loginfo('rigth throw!!')
                    self.throw_pub.publish('right')
                    self.right_wrist_motion_x = []
