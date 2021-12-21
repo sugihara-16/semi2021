@@ -16,8 +16,8 @@ class ThrowDetection():
         rospy.init_node('throw_detector', anonymous=True)
 
         self.flight_status = False
-        self.clock = 200
-        self.clock_switch = False
+        self.clock = 0
+        self.throw_count = 0
 
         self.right_wrist_motion_x = []
         self.right_wrist_motion_y = []
@@ -33,7 +33,7 @@ class ThrowDetection():
         right_shoulder = (False, 0)
         self.throw_pub.publish('')
 
-        if msg.poses:
+        if msg.poses and (self.clock >= 250):
             poses = msg.poses
             limb_names = poses[0].limb_names
             pose = poses[0].poses
@@ -47,7 +47,7 @@ class ThrowDetection():
                 right_wrist_pos = pose[right_wrist[1]].position
                 self.right_wrist_motion_x.append(right_wrist_pos.x)
                 self.right_wrist_motion_y.append(right_wrist_pos.y)
-            if len(self.right_wrist_motion_x) == 30:
+            if len(self.right_wrist_motion_x) == 50:
                 del self.right_wrist_motion_x[0]
                 del self.right_wrist_motion_y[0]
             if len(self.right_wrist_motion_x) > 10:
@@ -59,25 +59,36 @@ class ThrowDetection():
                 x_min = self.right_wrist_motion_x[x_min_pos_ind]
                 y_at_min = self.right_wrist_motion_y[x_min_pos_ind]
                 
-                if (abs(x_max - x_min) > 200) and (y_at_max > y_at_min) and (self.clock >=200):
-                   rospy.loginfo('left throw!!')
+                if (abs(x_max - x_min) > 250) and (y_at_max > y_at_min):
+                   rospy.loginfo('righ throw!!')
+                   rospy.loginfo('x_max = %f',x_max)
+                   rospy.loginfo('x_min = %f',x_min)
+                   rospy.loginfo('y_at_max = %f', y_at_max)
+                   rospy.loginfo('y_at_min = %f', y_at_min)
                    self.throw_pub.publish('left')
                    self.right_wrist_motion_x = []
                    self.right_wrist_motion_y = []
-                   self.clock_switch = True
                    self.clock = 0
+                   self.throw_count += 1
                    
-                if (abs(x_max - x_min) > 200) and (y_at_max < y_at_min) and (self.clock >= 200):
-                   rospy.loginfo('rigth throw!!')
+                if (abs(x_max - x_min) > 250) and (y_at_max < y_at_min):
+                   rospy.loginfo('left throw!!')
+                   rospy.loginfo('x_max = %f',x_max)
+                   rospy.loginfo('x_min = %f',x_min)
+                   rospy.loginfo('y_at_max = %f', y_at_max)
+                   rospy.loginfo('y_at_min = %f', y_at_min)
                    self.throw_pub.publish('right')
                    self.right_wrist_motion_x = []
                    self.right_wrist_motion_y = []
-                   self.clock_switch = True
                    self.clock = 0
-
-        if self.clock_switch:
+                   self.throw_count += 1
+        if self.throw_count < 4:
             self.clock += 1
-                   
+        else:
+            self.throw_pub.publish('Go')
+            rospy.loginfo('Go')
+        if self.clock >= 250:
+            rospy.loginfo('Ready!')
                 
                 
                     

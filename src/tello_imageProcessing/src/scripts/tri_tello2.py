@@ -24,9 +24,20 @@ class MultiTello():
         self.ar_detect = False
         self.catch_move = False
         self.catch_count = 0
+        self.lost_count2 = 0
+        self.lost_count3 = 0
         self.trash = False
         self.goal = False
-        
+
+        self.vx1_pre = 0
+        self.vy1_pre = 0
+        self.vz1_pre = 0
+        self.vx2_pre = 0
+        self.vy2_pre = 0
+        self.vz2_pre = 0
+        self.vx3_pre = 0
+        self.vy3_pre = 0
+        self.vz3_pre = 0
         self.length = 0.7
         self.takeoff_1_pub = rospy.Publisher('/tello1/takeoff', Empty, queue_size = 10)
         self.takeoff_2_pub = rospy.Publisher('/tello2/takeoff', Empty, queue_size = 10)
@@ -90,20 +101,28 @@ class MultiTello():
                 rospy.loginfo('0found')
                 count_2 = 0
                 if (px2 < x2-0.05) or (x2+0.05 < px2):
-                    velo = 0.5 * (px2-x2)/abs(px2-x2)*-1
-                    twist2.linear.x = velo
+                    twist2.linear.x = 0.5 * (px2-x2)/abs(px2-x2)*-1
+                    self.vx2_pre = twist2.linear.x
                     rospy.loginfo("px2 = %f",px2)
-                    rospy.loginfo("vx2= %f",velo)
-                if py2 < -0.15 or 0.05  < py2:
-                    twist2.linear.z = 0.2 * (py2+0.1)/abs(py2+0.1)  
+                    rospy.loginfo("vx2= %f",self.vx2_pre)
+                if py2 < -0.25 or- 0.05  < py2:
+                    twist2.linear.z = 0.2 * (py2+0.15)/abs(py2+0.15)
+                    self.vz2_pre = twist2.linear.z
                     rospy.loginfo("py2 = %f",py2)
                     rospy.loginfo("vz2 = %f",twist2.linear.z)
                 if (pz2 < z2-0.1)  or (z2+0.1 < pz2):
                     twist2.linear.y = 0.2 * (pz2-0.9)/abs(pz2-0.9)*-1
+                    self.vy2_pre = twist2.linear.y
                     rospy.loginfo("pz2 = %f",pz2)
                     rospy.loginfo("vy2 = %f",twist2.linear.y)
                 self.cmd_vel_2_pub.publish(twist2)
             count_2 += 1
+        elif (not self.trash):
+            self.lost_count2 += 1
+            if self.lost_count2 > 0:
+                self.lost_count2 = 0
+                twist2.linear.x = -0.1
+                self.cmd_vel_2_pub.publish(twist2)
 
         #tello3
         if ar_pose[1] and (not self.trash):
@@ -117,20 +136,28 @@ class MultiTello():
             if( count_3 > 1) and(limit_count > 20) and (not self.catch_move):
                 count_3 = 0
                 if (px3 < -x2-0.05) or (-x2+0.05 < px3):
-                    velo = 0.5 * (px3+x2)/abs(px3+x2)*-1
-                    twist3.linear.x = velo
+                    twist3.linear.x = 0.5 * (px3+x2)/abs(px3+x2)*-1
+                    self.vx3_pre = twist3.linear.x
                     rospy.loginfo("px3 = %f",px3)
-                    rospy.loginfo("vx3= %f",velo)
-                if py3 < -0.15 or 0.05  < py3:
-                    twist3.linear.z = 0.2 * (py3+0.1)/abs(py3+0.1)  
+                    rospy.loginfo("vx3= %f",self.vx3_pre)
+                if py3 < -0.25 or -0.05  < py3:
+                    twist3.linear.z = 0.2 * (py3+0.15)/abs(py3+0.15)
+                    self.vz3_pre = twist3.linear.z
                     rospy.loginfo("py3 = %f",py3)
                     rospy.loginfo("vz3 = %f",twist3.linear.z)
                 if (pz3 < z2-0.1)  or (z2+0.1 < pz3):
                     twist3.linear.y = 0.2 * (pz3-0.9)/abs(pz3-0.9)*-1
+                    self.vy3_pre = twist3.linear.y
                     rospy.loginfo("pz3 = %f",pz3)
                     rospy.loginfo("vy3 = %f",twist3.linear.y)
                 self.cmd_vel_3_pub.publish(twist3)
             count_3 += 1
+        elif (not self.trash):
+            self.lost_count3 += 1
+            if self.lost_count3 > 0:
+                self.lost_count3 = 0
+                twist3.linear.x = 0.1
+                self.cmd_vel_3_pub.publish(twist3)
 
         
     def throw_cb(self, msg):
