@@ -1,1 +1,0 @@
-/home/mech-user/semi_ws/devel/.private/tello_driver_wifi2/lib/python2.7/dist-packages/tello_driver_wifi2/cfg/__init__.py

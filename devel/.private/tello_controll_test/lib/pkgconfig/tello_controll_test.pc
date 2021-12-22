@@ -1,8 +1,0 @@
-prefix=/home/mech-user/semi_ws/devel/.private/tello_controll_test
-
-Name: tello_controll_test
-Description: Description of tello_controll_test
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

@@ -1,1 +1,0 @@
-/home/mech-user/semi_ws/devel/.private/tello_driver_wifi2/share/gennodejs/ros/tello_driver_wifi2/msg/TelloStatus.js

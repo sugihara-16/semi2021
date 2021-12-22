@@ -1,1 +1,0 @@
-/home/mech-user/semi_ws/devel/.private/tello_driver/share/gennodejs/ros/tello_driver/msg/TelloStatus.js

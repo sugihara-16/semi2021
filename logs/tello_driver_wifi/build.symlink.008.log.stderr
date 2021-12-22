@@ -1,3 +1,0 @@
-Warning: Cannot symlink from /home/mech-user/semi_ws/devel/.private/tello_driver_wifi/lib/python2.7/dist-packages/tellopy/__init__.py to existing file /home/mech-user/semi_ws/devel/lib/python2.7/dist-packages/tellopy/__init__.py
-Warning: Source hash: 5cdd0f7d64a4fa014e88efd8f25ce88a
-Warning: Dest hash: 3e448af7cfcb4e2e46c0a7429493cb6b

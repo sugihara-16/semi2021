@@ -1,1 +1,0 @@
-/home/mech-user/semi_ws/devel/.private/tello_driver_wifi/share/roseus/ros/tello_driver_wifi/manifest.l

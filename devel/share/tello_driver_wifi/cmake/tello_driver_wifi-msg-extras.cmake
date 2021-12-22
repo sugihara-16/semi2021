@@ -1,1 +1,0 @@
-/home/mech-user/semi_ws/devel/.private/tello_driver_wifi/share/tello_driver_wifi/cmake/tello_driver_wifi-msg-extras.cmake

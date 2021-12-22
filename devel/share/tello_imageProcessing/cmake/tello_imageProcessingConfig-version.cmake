@@ -1,1 +1,0 @@
-/home/mech-user/semi_ws/devel/.private/tello_imageProcessing/share/tello_imageProcessing/cmake/tello_imageProcessingConfig-version.cmake

@@ -1,1 +1,0 @@
-/home/mech-user/semi_ws/devel/.private/tello_controll_test/share/tello_controll_test/cmake/tello_controll_testConfig.cmake
