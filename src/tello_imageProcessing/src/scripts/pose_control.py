@@ -13,7 +13,7 @@ import numpy as np
 
 class ThrowDetection():
     def __init__(self):
-        rospy.init_node('throw_detector', anonymous=True)
+        rospy.init_node('pose_control', anonymous=True)
 
         self.flight_status = False
         self.clock = 0

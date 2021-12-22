@@ -63,9 +63,9 @@ class ThrowTrash():
                         twist2.linear.z = 0.2 * (pyg)/abs(pyg)*-1  
                         twist3.linear.z = 0.2 * (pyg)/abs(pyg)*-1
                     if (pzg < 1.7-0.15)  or (1.7+0.15 < pzg):
-                        twist1.linear.y = 0.3 * (pzg-1.1)/abs(pzg-1.1)
-                        twist2.linear.y = 0.3 * (pzg-1.1)/abs(pzg-1.1)
-                        twist3.linear.y = 0.3 * (pzg-1.1)/abs(pzg-1.1)
+                        twist1.linear.y = 0.6 * (pzg-1.1)/abs(pzg-1.1)
+                        twist2.linear.y = 0.6 * (pzg-1.1)/abs(pzg-1.1)
+                        twist3.linear.y = 0.6 * (pzg-1.1)/abs(pzg-1.1)
                     self.cmd_vel_1_pub.publish(twist1)                    
                     self.cmd_vel_2_pub.publish(twist2)
                     self.cmd_vel_3_pub.publish(twist3)
@@ -75,9 +75,9 @@ class ThrowTrash():
                 self.count += 1
         if not self.detection:
             rospy.loginfo('recieved')
-            twist1.linear.x = 1
-            twist2.linear.x = 1
-            twist3.linear.x = 1
+            twist1.linear.x = 0.6
+            twist2.linear.x = 0.6
+            twist3.linear.x = 0.6
             self.cmd_vel_1_pub.publish(twist1)
             self.cmd_vel_2_pub.publish(twist2)
             self.cmd_vel_3_pub.publish(twist3)

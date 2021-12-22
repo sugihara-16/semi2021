@@ -84,24 +84,30 @@ def talker():
                 pub_2_cmd_vel.publish(twist2)
                 pub_3_cmd_vel.publish(twist3)
             elif cm_list[0] == 'a':   # angular
-                l = 60
-                velo = 100 * (scale/abs(scale))
-                t = scale/velo
+                l = 1.23
+                velo = 15.0/180.0 *3.14 
+                t = 6
              
                 twist1.angular.z = velo
                 twist2.angular.z = velo
-                twist1.linear.x = -velo
-                twist2.linear.x = 0
+                twist3.angular.z = velo
+                twist2.linear.x = velo*1.23 
+                twist3.linear.x = velo*1.23
+                rospy.loginfo(velo)
             
                 pub_1_cmd_vel.publish(twist1)
                 pub_2_cmd_vel.publish(twist2)
+                pub_3_cmd_vel.publish(twist3)
                 time.sleep(t)
                 twist1.angular.x = twist1.angular.y = twist1.angular.z = 0.0
                 twist2.angular.x = twist2.angular.y = twist2.angular.z = 0.0
+                twist3.angular.x = twist3.angular.y = twist3.angular.z = 0.0
                 twist1.linear.x = twist1.linear.y = twist1.linear.z = 0.0
                 twist2.linear.x = twist2.linear.y = twist2.linear.z = 0.0
+                twist3.linear.x = twist3.linear.y = twist3.linear.z = 0.0
                 pub_1_cmd_vel.publish(twist1)
                 pub_2_cmd_vel.publish(twist2)
+                pub_3_cmd_vel.publish(twist3)
             
 
         r.sleep()
